@@ -1,0 +1,21 @@
+{
+  "name": "sass-fractions",
+  "version": "1.0.0",
+  "description": "fractions to english conversion",
+  "main": "index.scss",
+  "scripts": {
+    "start": "node-sass --watch index.scss -o css",
+    "test": "node-sass index.scss > index.css"
+  },
+  "keywords": [
+    "sass",
+    "maths",
+    "math",
+    "fractions"
+  ],
+  "author": "Jack McNicol <jack@mcpickle.com.au>",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.5.3"
+  }
+}
