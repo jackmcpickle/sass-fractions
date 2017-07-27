@@ -1,0 +1,34 @@
+@import 'true';
+
+@import '../src/index';
+
+@include describe('Fraction-names [function]') {
+  @include it('Converts 1/12 into its fraction names') {
+    $test: fraction-names(1, 12);
+    $expect: 'one-twelth';
+    // Assert the expected results
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 6/12 into its lowest fraction name') {
+    $test: fraction-names(6, 12);
+    $expect: 'one-half';
+    // Assert the expected results
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 6/12 into its lowest fraction name') {
+    $test: fraction-names(6, 12);
+    $expect: 'one-quanter';
+    // Assert the expected results
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 2/6 into its lowest fraction name') {
+    $test: fraction-names(2, 6);
+    $expect: 'one-third';
+    // Assert the expected results
+    @include assert-equal($test, $expect);
+  }
+
+}

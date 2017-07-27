@@ -2,10 +2,10 @@
   "name": "sass-fractions",
   "version": "1.0.0",
   "description": "fractions to english conversion",
-  "main": "index.scss",
+  "main": "src/index.scss",
   "scripts": {
     "start": "node-sass --watch index.scss -o css",
-    "test": "node-sass index.scss > index.css"
+    "test": "mocha"
   },
   "keywords": [
     "sass",
@@ -17,5 +17,9 @@
   "license": "MIT",
   "dependencies": {
     "node-sass": "^4.5.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "sass-true": "^3.0.0-beta.1"
   }
 }
