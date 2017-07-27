@@ -17,9 +17,9 @@
     @include assert-equal($test, $expect);
   }
 
-  @include it('Converts 6/12 into its lowest fraction name') {
-    $test: fraction-names(6, 12);
-    $expect: 'one-quanter';
+  @include it('Converts 3/12 into its lowest fraction name') {
+    $test: fraction-names(3, 12);
+    $expect: 'one-quarter';
     // Assert the expected results
     @include assert-equal($test, $expect);
   }
@@ -27,6 +27,20 @@
   @include it('Converts 2/6 into its lowest fraction name') {
     $test: fraction-names(2, 6);
     $expect: 'one-third';
+    // Assert the expected results
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 3/8 into its lowest fraction name with underscore') {
+    $test: fraction-names(3, 8, '_');
+    $expect: 'three_eighths';
+    // Assert the expected results
+    @include assert-equal($test, $expect);
+	}
+
+  @include it('Converts 4/10 into its lowest fraction name') {
+    $test: fraction-names(4, 10);
+    $expect: 'two-fifths';
     // Assert the expected results
     @include assert-equal($test, $expect);
   }
