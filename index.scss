@@ -1,165 +1,8 @@
-// This provides some common mathemetical functions implemented in pure sass:
-//
-// - $PI
-// - ln($x, $steps: 32)
-// - pow($x, $exponent, $steps: 32)
-// - sqrt($x, $exponent: 2, $steps: 32)
-// - sin($x, $steps: 32)
-// - cos($x, $steps: 32)
-// - tan($x, $steps: 32)
-//
-// The implementations are based on taylor expansions. The `$steps` argument
-// defines how many steps of the series will be calculated. So a higher number
-// will result in higher precision.
-//
-// Taylor expansions converge quickly around their centers, so a decent
-// approximation can be calculated in constant time.
-//
-// If the input $x is too far off of the center, it is converted to a closer
-// value $y in a way that allows to calculate f($x) from f($y). This conversion
-// uses exact arithmetics and can be done in constant or logarithmic time.
-//
-// This approach is havily inspired by
-// <http://www.sassmeister.com/gist/ad6e6771df050ff3727f>. However, the
-// implementations in this gist are much more efficient.
-
-$PI: 3.141592653589793;
-
-@function math-exp-taylor-0($x, $steps) {
-    $item: 1;
-    $result: 1;
-
-    @for $i from 1 to $steps {
-        $item: $item * $x / $i;
-        $result: $result + $item;
-    }
-
-    @return $result;
-}
-
-@function math-ln-taylor-1($x, $steps) {
-    $z: ($x - 1) / ($x + 1);
-
-    $power: $z;
-    $result: $z;
-
-    @for $i from 1 to $steps {
-        $power: $power * $z *$z;
-        $result: $result + $power / (2 * $i + 1);
-    }
-
-    @return 2 * $result;
-}
-
-@function math-sin-taylor-0($x, $steps) {
-    $item: $x;
-    $result: $x;
-
-    @for $i from 1 to $steps {
-        $item: -$item * $x * $x / (2 * $i) / (2 * $i + 1);
-        $result: $result + $item;
-    }
-
-    @return $result;
-}
-
-@function math-pow-int($base, $exponent) {
-    @if $exponent < 0 {
-        @return 1 / math-pow-int($base, -$exponent);
-    } @else if $exponent == 0 {
-        @return 1;
-    } @else if $exponent == 1 {
-        @return $base;
-    } @else {
-        $exp: floor($exponent / 2);
-        $pow: math-pow-int($base, $exp);
-        @if $exp * 2 == $exponent {
-            @return $pow * $pow;
-        } @else {
-            @return $pow * $pow * $base;
-        }
-    }
-}
-
-@function math-log-approx($x) {
-    @if $x <= 0 {
-        @error "cannot calculate log of #{$x}";
-    } @else if $x >= 1 {
-        // choose the smaller option (-1) because it yield better
-        // results in ln().
-        @return str-length(inspect(round($x))) - 1;
-    } @else {
-        @return -1 * str-length(inspect(round(1 / $x)));
-    }
-}
-
-@function ln($x, $steps: 32) {
-    $ln10: 2.302585092994046;
-    $approx: math-log-approx($x);
-    // $y is in range [1, 10]
-    $y: $x / math-pow-int(10, $approx);
-    @return $approx * $ln10 + math-ln-taylor-1($y, $steps);
-}
-
-@function pow($x, $exponent, $steps: 32) {
-    $exp1: round($exponent);
-    $exp2: $exponent - $exp1;
-    $pow1: math-pow-int($x, $exp1);
-    @if $exp2 == 0 {
-        @return $pow1;
-    } @else {
-        $y: ln($x, $steps) * $exp2;
-        $pow2: math-exp-taylor-0($y, $steps);
-        @return $pow1 * $pow2;
-    }
-}
-
-@function sqrt($x, $exponent: 2, $steps: 32) {
-    @return pow($x, 1 / $exponent, $steps);
-}
-
-@function sin($x, $steps: 32) {
-    $y: $x % (2 * $PI);
-    @if $y > $PI {
-        @return -1 * sin($y - $PI);
-    } @else if $y < 0 {
-        @return -1 * sin(-$y);
-    } @else {
-        @return math-sin-taylor-0($y % (2 * $PI), $steps);
-    }
-}
-
-@function cos($x, $steps: 32) {
-    @return sin($x - $PI / 2, $steps);
-}
-
-@function tan($x, $steps: 32) {
-    @return sin($x, $steps) / $cos($x, $steps);
-}
-
-
-@function roundToPlaces($number, $places) {
-    @if not places {
-        @return round($number);
-    } @else {
-        $scalar: pow(10, $places);
-        @return round($number * $scalar) / $scalar;
-    }
-}
-
-@function isFloat($number) {
-  @return $number == round($number);
-}
-
-@function decimalCount($number) {
-  @return length(str-slice($number + '', str-index($number + '', '.') + 1));
-}
-
-@function greatestCommonFactor($a, $b) {
+@function greatest-common-factor($a, $b) {
     $a: abs($a);
     $b: abs($b);
 
-    @while ($b) {
+    @while ($b > 0) {
         $c: $a % $b;
         $a: $b;
         $b: $c;
@@ -168,21 +11,7 @@ $PI: 3.141592653589793;
 };
 
 @function normalize($numerator, $denominator) {
-  @if not isFloat($denominator) {
-      $rounded: roundToPlaces($denominator, 9);
-      $decimalCount:  decimalCount($rounded);
-      $scaleup: pow(10, $decimalCount);
-      $denominator: round($denominator * $scaleup); // this !!! should be a whole number
-      $numerator: $numerator * $scaleup;
-  }
-  @if not isFloat($numerator) {
-      $rounded: roundToPlaces($numerator, 9);
-      $decimalCount:  decimalCount($rounded);
-      $scaleup: pow(10, $decimalCount);
-      $numerator: round($numerator * $scaleup); // this !!! should be a whole number
-      $denominator: $denominator * $scaleup;
-  }
-  $gcf: greatestCommonFactor($numerator, $denominator);
+  $gcf: greatest-common-factor($numerator, $denominator);
   $numerator: $numerator / $gcf;
   $denominator: $denominator / $gcf;
   @if $denominator < 0 {
@@ -192,27 +21,25 @@ $PI: 3.141592653589793;
   @return ($numerator, $denominator);
 }
 
-
-
-.para {
-  padding: 1rem;
-  background: grey;
-  color: white;
-}
-
-$singleFractionNames: (
+$single-fraction-names: (
   1: whole,
   2: half,
   3: third,
   4: quarter,
   5: fifth,
-  6: sixth
+  6: sixth,
+  7: seventh,
+  8: eighth,
+  9: nineth,
+  10: tenth,
+  11: eleventh,
+  12: twelth
 );
 
-$digitNames: (1: one, 2: two, 3: three, 4: four, 5: five, 6: six, 7: seven, 8: eight, 9: nine, 10: ten, 11: eleven, 12: twelve);
+$digit-names: (1: one, 2: two, 3: three, 4: four, 5: five, 6: six, 7: seven, 8: eight, 9: nine, 10: ten, 11: eleven, 12: twelve);
 
 
-@function hasMany($test) {
+@function has-many($test) {
   @if type-of($test) == 'number' {
     @return $test > 1;
   }
@@ -224,20 +51,18 @@ $digitNames: (1: one, 2: two, 3: three, 4: four, 5: five, 6: six, 7: seven, 8: e
   }
   @else if type-of($test) == 'string' {
     @return str-slice($test, -1) == 's';
-  }
-  @else {
+  } @else {
     @return false;
   }
 }
 
 @function pulurize($word, $test) {
-  @if not hasMany($test) {
+  @if not has-many($test) {
     @return $word;
   }
   @if str-slice($word, -2) == 'lf' {
     @return str-slice($word, -2) + es;
-  }
-  @else {
+  } @else {
     @return $word + s;
   }
 }
@@ -246,9 +71,10 @@ $total-columns: 12;
 
 @for $i from 1 through $total-columns {
   // Base grid
-  $normalize: normalize( $i, $total-columns );
-  $numerator: map-get($digitNames, nth($normalize, 1) );
-  $denominator: map-get($singleFractionNames, nth($normalize, 2) );
+  $normalize: normalize($i, $total-columns);
+  $numerator: map-get($digit-names, nth($normalize, 1));
+  $denominator: pulurize(map-get($single-fraction-names, nth($normalize, 2)), nth($normalize, 1) );
+
   .grid-item-#{$numerator}-#{$denominator} {
     width: percentage($i / $total-columns);
   }
