@@ -78,3 +78,7 @@ $total-columns: 12;
   $denominator-name-pulurize: pulurize($denominator-name, $normalize-numerator);
   @return #{$numerator-name + $seperator + $denominator-name-pulurize};
 }
+
+@function lowest-fraction($numerator, $denominator) {
+  @return normalize($numerator, $denominator);
+}
