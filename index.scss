@@ -69,13 +69,12 @@ $digit-names: (1: one, 2: two, 3: three, 4: four, 5: five, 6: six, 7: seven, 8: 
 
 $total-columns: 12;
 
-@for $i from 1 through $total-columns {
-  // Base grid
-  $normalize: normalize($i, $total-columns);
-  $numerator: map-get($digit-names, nth($normalize, 1));
-  $denominator: pulurize(map-get($single-fraction-names, nth($normalize, 2)), nth($normalize, 1) );
-
-  .grid-item-#{$numerator}-#{$denominator} {
-    width: percentage($i / $total-columns);
-  }
+@function fraction-names($numerator, $denominator, $seperator: '-') {
+  $normalize: normalize($numerator, $denominator);
+  $normalize-numerator: nth($normalize, 1);
+  $normalize-denominator: nth($normalize, 2);
+  $numerator-name: map-get($digit-names, $normalize-numerator);
+  $denominator-name: map-get($single-fraction-names, $normalize-denominator);
+  $denominator-name-pulurize: pulurize($denominator-name, $normalize-numerator);
+  @return #{$numerator-name + $seperator + $denominator-name-pulurize};
 }
