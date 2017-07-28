@@ -33,7 +33,7 @@ $single-fraction-names: (
   9: nineth,
   10: tenth,
   11: eleventh,
-  12: twelth
+  12: twelfth
 ) !default;
 
 $digit-names: (1: one, 2: two, 3: three, 4: four, 5: five, 6: six, 7: seven, 8: eight, 9: nine, 10: ten, 11: eleven, 12: twelve) !default;
@@ -67,18 +67,25 @@ $digit-names: (1: one, 2: two, 3: three, 4: four, 5: five, 6: six, 7: seven, 8: 
   }
 }
 
-$total-columns: 12;
+$fraction-separator: '-' !default;
+$lowest-common-denominator: true !default;
 
-@function fraction-names($numerator, $denominator, $seperator: '-') {
-  $normalize: normalize($numerator, $denominator);
+@function fraction-names($numerator, $denominator, $separator: $fraction-separator, $lcd: $lowest-common-denominator) {
+  $normalize: ();
+  @if $lcd {
+    $normalize: normalize($numerator, $denominator);
+  } @else {
+    $normalize: $numerator, $denominator;
+  }
   $normalize-numerator: nth($normalize, 1);
   $normalize-denominator: nth($normalize, 2);
   $numerator-name: map-get($digit-names, $normalize-numerator);
   $denominator-name: map-get($single-fraction-names, $normalize-denominator);
   $denominator-name-pulurize: pulurize($denominator-name, $normalize-numerator);
-  @return #{$numerator-name + $seperator + $denominator-name-pulurize};
+  @return #{$numerator-name + $separator + $denominator-name-pulurize};
 }
 
-@function lowest-fraction($numerator, $denominator) {
-  @return normalize($numerator, $denominator);
+@function lowest-fraction($numerator, $denominator, $separator: $fraction-separator) {
+  $normalize: normalize($numerator, $denominator);
+  @return #{nth($normalize, 1) + $separator + nth($normalize, 2)};
 }
