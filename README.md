@@ -1,5 +1,7 @@
 # Sass Fractions
 
+[![Build Status](https://travis-ci.org/jackmcpickle/sass-fractions.svg?branch=master)](https://travis-ci.org/jackmcpickle/sass-fractions)
+
 Converts fractions to words or lowest common denominator
 
 ## Install
