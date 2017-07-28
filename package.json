@@ -4,7 +4,8 @@
   "description": "fractions to english conversion",
   "main": "src/index.scss",
   "scripts": {
-    "start": "node-sass --watch index.scss -o css",
+    "start": "node-sass --watch src/index.scss -o css",
+    "prepublish": "npm test",
     "test": "mocha"
   },
   "keywords": [
