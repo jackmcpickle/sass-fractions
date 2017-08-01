@@ -1,0 +1,62 @@
+
+@include describe('Fraction-names [function]') {
+  @include it('Converts 1/12 into its fraction names') {
+    $test: fraction-names(1, 12);
+    $expect: 'one-twelfth';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 6/12 into its lowest fraction name') {
+    $test: fraction-names(6, 12);
+    $expect: 'one-half';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 3/12 into its lowest fraction name') {
+    $test: fraction-names(3, 12);
+    $expect: 'one-quarter';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 2/6 into its lowest fraction name') {
+    $test: fraction-names(2, 6);
+    $expect: 'one-third';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 3/8 into its lowest fraction name with underscore') {
+    $test: fraction-names(3, 8, '_');
+    $expect: 'three_eighths';
+
+    @include assert-equal($test, $expect);
+	}
+
+  @include it('Converts 4/10 into its lowest fraction name') {
+    $test: fraction-names(4, 10);
+    $expect: 'two-fifths';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 4/10 into its fraction name') {
+    $test: fraction-names(4, 10, $lcd: false);
+    $expect: 'four-tenths';
+
+    @include assert-equal($test, $expect);
+  }
+
+}
+
+
+@include describe('wfrac [function]') {
+  @include it('Converts 5/8 into its fraction name') {
+    $test: wfrac(5, 8);
+    $expect: 'five-eighths';
+
+    @include assert-equal($test, $expect);
+  }
+}

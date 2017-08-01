@@ -1,0 +1,120 @@
+
+@include describe('Greatest-common-factor [function]') {
+  @include it('Find the gcf in 5/10') {
+    $test: greatest-common-factor(5, 10);
+    $expect: 5;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Find the gcf in 4/20') {
+    $test: greatest-common-factor(4, 20);
+    $expect: 4;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Find the gcf in 1/2') {
+    $test: greatest-common-factor(1, 2);
+    $expect: 1;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Find the gcf in 6/2') {
+    $test: greatest-common-factor(6, 2);
+    $expect: 2;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Find the gcf in 0/1') {
+    $test: greatest-common-factor(1, 0);
+    $expect: 1;
+
+    @include assert-equal($test, $expect);
+  }
+}
+
+
+@include describe('Normalize [function]') {
+  @include it('Find the lowest common factors of 5/10') {
+    $test: normalize(5, 10);
+    $expect: 1, 2;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Find the lowest common factors of 1/12') {
+    $test: normalize(1, 12);
+    $expect: 1, 12;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Find the lowest common factors of 2/14') {
+    $test: normalize(2, 14);
+    $expect: 1, 7;
+
+    @include assert-equal($test, $expect);
+  }
+}
+
+
+@include describe('Has-many [function]') {
+  @include it('3 is many') {
+    $test: has-many(3);
+    $expect: true;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('1 is not many') {
+    $test: has-many(1);
+    $expect: false;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('The list (1 2) is many') {
+    $list: (1 2);
+    $test: has-many($list);
+    $expect: true;
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('The string thrids is many') {
+    $string: 'thrids';
+    $test: has-many($string);
+    $expect: true;
+
+    @include assert-equal($test, $expect);
+  }
+}
+
+@include describe('Pulurize [function]') {
+  @include it('Pulurize third with 3 becomes thirds') {
+    $word: 'third';
+    $test: pulurize($word, 3);
+    $expect: 'thirds';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Pulurize third with 1 stays third') {
+    $word: 'third';
+    $test: pulurize($word, 1);
+    $expect: 'third';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Pulurize half with 3 becomes halves') {
+    $word: 'half';
+    $test: pulurize($word, 3);
+    $expect: 'halves';
+
+    @include assert-equal($test, $expect);
+  }
+}
