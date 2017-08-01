@@ -12,9 +12,9 @@ or
 
 `yarn add sass-fractions`
 
-## Function - fraction-names()
+## Function - wfrac()
 
-`fraction-names($numerator, $denominator, $separator, $lowest-common-denominator)`
+`wfrac($numerator, $denominator, $separator, $lowest-common-denominator)`
 
 Returns the fraction passed into words
 
@@ -27,15 +27,15 @@ Returns the fraction passed into words
 Create a simple grid
 
 ```scss
-.grid-#{fraction-names(2, 3)} {
-  width: percentage(2 / 3);
+.grid-#{wfrac(2, 3)} {
+  /* properties... */
 }
 ```
 Outputs
 
 ```css
 .grid-two-thirds {
-  width: 66.66666%;
+  /* properties... */
 }
 ```
 
@@ -43,9 +43,8 @@ Outputs
 
 ```scss
 $lowest-common-denominator: false;
-
-.grid-#{fraction-names(4, 12, '_')} {
-  width: percentage(4 / 12);
+.grid-#{wfrac(4, 12, '_')} {
+  /* properties... */
 }
 ```
 
@@ -53,13 +52,13 @@ Outputs
 
 ```css
 .grid_four_twelfths {
-  width: 33.33333%;
+  /* properties... */
 }
 ```
 
-## Function - lowest-fraction()
+## Function - lfrac()
 
-`lowest-fraction($numerator, $denominator, $separator)`
+`lfrac($numerator, $denominator, $separator)`
 
 Returns the fraction passed into it's lowest common denominator.
 
@@ -69,8 +68,8 @@ Returns the fraction passed into it's lowest common denominator.
 ### Usage - fraction to lowest common denominator
 
 ```scss
-.grid-#{lowest-fraction(5, 10)} {
-  width: percentage(5 / 10);
+.grid-#{lfrac(5, 10)} {
+  /* properties... */
 }
 ```
 
@@ -78,7 +77,7 @@ Outputs
 
 ```css
 .grid-1-2 {
-  width: 50%;
+  /* properties... */
 }
 ```
 
@@ -88,11 +87,11 @@ Change the default `$single-fraction-names` and `$digit-names`
 
 ```scss
 // Spanish / Español
-$single-fraction-names: (1: todo, 2: mitad, 3: tercio);
-$digit-names: (1: uno, 2: dos);
+$single-fraction-names: (todo, mitad, tercio);
+$digit-names: (uno, dos);
 
-.grid-#{fraction-names(2, 3)} {
-  width: percentage(2 / 3);
+.grid-#{wfrac(2, 3)} {
+  /* properties... */
 }
 
 ```
@@ -101,6 +100,6 @@ Outputs
 
 ```css
 .grid-dos-tercios {
-  width: 66.66666%;
+  /* properties... */
 }
 ```
