@@ -1,6 +1,6 @@
 {
   "name": "sass-fractions",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "fractions to english conversion",
   "main": "src/index.scss",
   "scripts": {
