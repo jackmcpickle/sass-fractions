@@ -14,7 +14,7 @@ or
 
 ## Function - wfrac()
 
-`wfrac($numerator, $denominator, $separator, $lowest-common-denominator)`
+`wfrac($numerator, $denominator, $separator: '-', $lowest-common-denominator: true)`
 
 Returns the fraction passed into words
 
@@ -58,7 +58,7 @@ Outputs
 
 ## Function - lfrac()
 
-`lfrac($numerator, $denominator, $separator)`
+`lfrac($numerator, $denominator, $separator: '-')`
 
 Returns the fraction passed into it's lowest common denominator.
 
