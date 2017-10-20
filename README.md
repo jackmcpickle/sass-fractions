@@ -103,3 +103,53 @@ Outputs
   /* properties... */
 }
 ```
+
+## Function - frac2word()
+
+`frac2word($string, $separator: '/', $fraction-separator: '-', $lowest-common-denominator: true)`
+
+Parses the fraction as a string - returns the fraction passed into words.
+
+`$separator` -  character(s) that is used to separate the fraction string, default: '/'
+
+`$fraction-separator` - character(s) to separate the fraction words that are returned.
+
+`$lowest-common-denominator` - Whether or not to convert the fraction into it's lowest common denominator, default: true
+
+```scss
+.grid-#{frac2word('2/12')} {
+  /* properties... */
+}
+```
+
+Outputs
+
+```css
+.grid-one-sixth {
+  /* properties... */
+}
+```
+
+## Function - frac2low()
+
+`frac2low($string, $separator: '/', $fraction-separator: '-')`
+
+Parses the fraction as a string - returns the fraction in its lowest common denominator form
+
+`$separator` -  character(s) that is used to separate the fraction string, default: '/'
+
+`$fraction-separator` - character(s) to separate the fraction words that are returned.
+
+```scss
+.grid-#{frac2low('2/12')} {
+  /* properties... */
+}
+```
+
+Outputs
+
+```css
+.grid-1-6 {
+  /* properties... */
+}
+```
