@@ -60,3 +60,19 @@
     @include assert-equal($test, $expect);
   }
 }
+
+@include describe('frac2word [function]') {
+  @include it('Converts 5/8 as string into its fraction name') {
+    $test: frac2word('5/8');
+    $expect: 'five-eighths';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 1/12 as string into its fraction name') {
+    $test: frac2word('1/12');
+    $expect: 'one-twelfth';
+
+    @include assert-equal($test, $expect);
+  }
+}
