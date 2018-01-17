@@ -1,0 +1,58 @@
+
+@include describe('Lowest Fraction [Function]') {
+  @include it('Converts 6/12 into lowest common denominator') {
+    $test: lowest-fraction(6, 12);
+    $expect: '1-2';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 3/9 into lowest common denominator') {
+    $test: lowest-fraction(3, 9);
+    $expect: '1-3';
+
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 2/10 into lowest common denominator') {
+    $test: lowest-fraction(2, 10);
+    $expect: '1-5';
+
+    @include assert-equal($test, $expect);
+  }
+}
+
+@include describe('lfrac [Function]') {
+  @include it('Converts 6/12 into lowest common denominator') {
+    $test: lfrac(6, 12);
+    $expect: '1-2';
+
+    @include assert-equal($test, $expect);
+  }
+}
+
+@include describe('frac2low [Function]') {
+  @include it('Converts 6/12 as string into lowest common denominator') {
+    $test: frac2low('6/12');
+    $expect: '1-2';
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 3/12 as string into lowest common denominator') {
+    $test: frac2low('3/12');
+    $expect: '1-4';
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 2/8 as string into lowest common denominator') {
+    $test: frac2low('2/8');
+    $expect: '1-4';
+    @include assert-equal($test, $expect);
+  }
+
+  @include it('Converts 9/8 as string into lowest common denominator') {
+    $test: frac2low('9/8');
+    $expect: '9-8';
+    @include assert-equal($test, $expect);
+  }
+}

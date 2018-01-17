@@ -1,6 +1,6 @@
 {
   "name": "sass-fractions",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "fractions to english conversion",
   "main": "src/index.scss",
   "scripts": {
@@ -20,7 +20,7 @@
     "node-sass": "^4.5.3"
   },
   "devDependencies": {
-    "mocha": "^3.4.2",
+    "mocha": "^4.0.0",
     "sass-true": "^3.0.0-beta.1"
   }
 }
