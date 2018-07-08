@@ -1,7 +1,5 @@
 # Sass Fractions
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/jackmcpickle/sass-fractions.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/jackmcpickle/sass-fractions.svg?branch=master)](https://travis-ci.org/jackmcpickle/sass-fractions)
 
 Converts fractions to words or lowest common denominator
