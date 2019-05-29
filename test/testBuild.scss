@@ -1,0 +1,9 @@
+@import '../src/index';
+
+
+.test {
+  content: frac2low('6/12');
+  content: frac2word('6/12');
+  content: fraction-names(8, 12);
+  content: lowest-fraction(4, 12);
+}

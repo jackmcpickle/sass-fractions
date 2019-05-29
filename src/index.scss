@@ -1,8 +1,7 @@
 $single-fraction-names: (whole, half, third, quarter, fifth, sixth, seventh, eighth, nineth, tenth, eleventh, twelfth) !default;
 $digit-names: (one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve) !default;
 
-@function to-number($value)
-{
+@function to-number($value) {
   @if type-of($value) == 'number' {
     @return $value;
   } @else if type-of($value) != 'string' {
@@ -27,8 +26,7 @@ $digit-names: (one, two, three, four, five, six, seven, eight, nine, ten, eleven
   @return $result;
 }
 
-@function greatest-common-factor($a, $b)
-{
+@function greatest-common-factor($a, $b) {
     $a: abs($a);
     $b: abs($b);
 
@@ -41,8 +39,7 @@ $digit-names: (one, two, three, four, five, six, seven, eight, nine, ten, eleven
     @return $a;
 };
 
-@function normalize($numerator, $denominator)
-{
+@function normalize($numerator, $denominator) {
   $gcf: greatest-common-factor($numerator, $denominator);
   $numerator: $numerator / $gcf;
   $denominator: $denominator / $gcf;
@@ -53,8 +50,7 @@ $digit-names: (one, two, three, four, five, six, seven, eight, nine, ten, eleven
   @return ($numerator, $denominator);
 }
 
-@function has-many($test)
-{
+@function has-many($test) {
   @if type-of($test) == 'number' {
     @return $test > 1;
   }
@@ -71,8 +67,7 @@ $digit-names: (one, two, three, four, five, six, seven, eight, nine, ten, eleven
   }
 }
 
-@function pulurize($word, $test)
-{
+@function pulurize($word, $test) {
   @if not has-many($test)
   {
     @return $word;
@@ -87,8 +82,7 @@ $digit-names: (one, two, three, four, five, six, seven, eight, nine, ten, eleven
 $fraction-separator: '-' !default;
 $lowest-common-denominator: true !default;
 
-@function fraction-names($numerator, $denominator, $separator: $fraction-separator, $lcd: $lowest-common-denominator)
-{
+@function fraction-names($numerator, $denominator, $separator: $fraction-separator, $lcd: $lowest-common-denominator) {
   $normalize: ();
   @if $lcd {
     $normalize: normalize($numerator, $denominator);
@@ -103,14 +97,12 @@ $lowest-common-denominator: true !default;
   @return #{$numerator-name + $separator + $denominator-name-pulurize};
 }
 
-@function lowest-fraction($numerator, $denominator, $separator: $fraction-separator)
-{
+@function lowest-fraction($numerator, $denominator, $separator: $fraction-separator) {
   $normalize: normalize($numerator, $denominator);
   @return #{nth($normalize, 1) + $separator + nth($normalize, 2)};
 }
 
-@function wfrac($numerator, $denominator, $separator: $fraction-separator, $lcd: $lowest-common-denominator)
-{
+@function wfrac($numerator, $denominator, $separator: $fraction-separator, $lcd: $lowest-common-denominator) {
   @return fraction-names($numerator, $denominator, $separator, $lcd);
 }
 
@@ -119,16 +111,24 @@ $lowest-common-denominator: true !default;
   @return lowest-fraction($numerator, $denominator, $separator);
 }
 
-@function frac2word($string, $string-separator: '/', $fraction-separator: $fraction-separator, $lcd: $lowest-common-denominator)
-{
+@function frac2word(
+  $string,
+  $string-separator: '/',
+  $fraction-separator:
+  $fraction-separator,
+  $lcd: $lowest-common-denominator
+  ) {
   $separator-index: str-index($string, $string-separator);
   $numerator: to-number(str-slice($string, 1, $separator-index - 1));
   $denominator: to-number(str-slice($string, $separator-index + 1));
   @return fraction-names($numerator, $denominator, $fraction-separator, $lcd);
 }
 
-@function frac2low($string, $string-separator: '/', $fraction-separator: $fraction-separator)
-{
+@function frac2low(
+  $string,
+  $string-separator: '/',
+  $fraction-separator: $fraction-separator
+) {
   $separator-index: str-index($string, $string-separator);
   $numerator: to-number(str-slice($string, 1, $separator-index - 1));
   $denominator: to-number(str-slice($string, $separator-index + 1));
