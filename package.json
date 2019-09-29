@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "6.2.0",
+    "mocha": "6.2.1",
     "node-sass": "4.12.0",
     "sass": "1.22.12",
     "sass-true": "5.0.0"
