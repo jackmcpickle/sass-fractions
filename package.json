@@ -21,7 +21,7 @@
   "devDependencies": {
     "mocha": "7.0.0",
     "node-sass": "4.13.0",
-    "sass": "1.24.3",
+    "sass": "1.24.4",
     "sass-true": "5.0.0"
   }
 }
