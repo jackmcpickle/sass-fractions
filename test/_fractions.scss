@@ -1,4 +1,3 @@
-
 @include describe('Lowest Fraction [Function]') {
   @include it('Converts 6/12 into lowest common denominator') {
     $test: lowest-fraction(6, 12);
