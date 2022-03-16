@@ -22,7 +22,7 @@
   "devDependencies": {
     "mocha": "9.2.2",
     "node-sass": "7.0.1",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "sass": "1.49.9",
     "sass-true": "6.1.0"
   }
