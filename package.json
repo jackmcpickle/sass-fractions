@@ -24,6 +24,6 @@
     "node-sass": "9.0.0",
     "prettier": "3.6.0",
     "sass": "1.89.2",
-    "sass-true": "8.1.0"
+    "sass-true": "9.0.0"
   }
 }
