@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "11.7.2",
+    "mocha": "11.7.3",
     "node-sass": "9.0.0",
     "prettier": "3.6.2",
     "sass": "1.93.2",
